@@ -25,7 +25,8 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login('Login', 'main')
 
 # write varaible name and values
-st.code(f'name = "{name}" \nusername = "{username}" \nauthentication_status = {authentication_status}')
+if authentication_status == True:
+    st.code(f'name = "{name}" \nusername = "{username}" \nauthentication_status = {authentication_status}')
 
 # --------------------------- #
 # 2. Logic Control            #
@@ -44,23 +45,24 @@ elif st.session_state["authentication_status"] is None:
 # 3. Password Reset           #
 # --------------------------- #
 
-if authentication_status:
-    try:
-        if authenticator.reset_password(username, 'Reset password'):
-            st.success('Password modified successfully')
-            with open('config.yaml', 'w') as file:
-                yaml.dump(config, file, default_flow_style=False)
-    except Exception as e:
-        st.error(e)
+
+try:
+    if authenticator.reset_password(username, 'Reset password'):
+        st.success('Password modified successfully')
+        with open('config.yaml', 'w') as file:
+            yaml.dump(config, file, default_flow_style=False)
+except Exception as e:
+    st.error(e)
 
 # --------------------------- #
 # 4. New User                 #
 # --------------------------- #
 
+
 try:
     if authenticator.register_user('Register user', preauthorization=False):
         st.success('User registered successfully')
-        with open('config.yaml', 'w') as file:
-            yaml.dump(config, file, default_flow_style=False)
+    with open('config.yaml', 'w') as file:
+        yaml.dump(config, file, default_flow_style=False)
 except Exception as e:
     st.error(e)
