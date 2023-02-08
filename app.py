@@ -20,4 +20,14 @@ authenticator = stauth.Authenticate(
 
 name, authentication_status, username = authenticator.login('Login', 'main')
 
-st.write(name, authentication_status, username)
+# write varaible name and values
+st.code(f'name = "{name}" \nusername = "{username}" \nauthentication_status = {authentication_status}')
+
+if st.session_state["authentication_status"]:
+    authenticator.logout('Logout', 'main')
+    st.write(f'Welcome *{st.session_state["name"]}*')
+    st.header('🔒 Content Authorized')
+elif st.session_state["authentication_status"] is False:
+    st.error('Username/password is incorrect')
+elif st.session_state["authentication_status"] is None:
+    st.warning('Please enter your username and password')

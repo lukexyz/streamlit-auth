@@ -62,3 +62,19 @@ authenticator = stauth.Authenticate(
     config['preauthorized']
 )
 ```
+
+## 4. Authenticate users
+
+- 🔐✅ **Allow your verified user to proceed** to restricted content using the returned name and authentication status.
+- 🔓 **Add an optional logout button**
+
+```python
+if authentication_status:
+    authenticator.logout('Logout', 'main')
+    st.write(f'Welcome *{name}*')
+    st.title('Some content')
+elif authentication_status is False:
+    st.error('Username/password is incorrect')
+elif authentication_status is None:
+    st.warning('Please enter your username and password')
+```
