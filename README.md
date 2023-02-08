@@ -78,3 +78,22 @@ elif authentication_status is False:
 elif authentication_status is None:
     st.warning('Please enter your username and password')
 ```
+
+## 4. Updating the `config.yaml` file
+
+- Please ensure that the configuration file is resaved anytime the credentials are updated or whenever the **reset_password**, **register_user**, **forgot_password**, or **update_user_details** widgets are used.
+
+```python
+with open('../config.yaml', 'w') as file:
+    yaml.dump(config, file, default_flow_style=False)
+```
+
+## 6. Additional Functionality
+
+- Creating a password reset widget
+- Creating a new user registration widget
+- Creating a forgot password widget
+- Creating a forgot username widget
+- Creating an update user details widget
+
+https://github.com/mkhorasani/Streamlit-Authenticator
